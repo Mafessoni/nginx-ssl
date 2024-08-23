@@ -16,3 +16,6 @@ certbot --nginx
 
 ## Renovar certificado
 - Repita o mesmo passo da criação de certificado
+
+## Renovação automatica com cronjob
+- docker exec nginx-otavio sh renova-ssl.sh

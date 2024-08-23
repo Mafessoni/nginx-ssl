@@ -1,0 +1,20 @@
+{
+  "name": "exemplo",
+  "version": "1.0.0",
+  "description": "API de exemplo.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc -p ."
+  },
+  "author": "Otavio Mafessoni",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "express": "^4.19.2"
+  }
+}

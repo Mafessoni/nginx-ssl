@@ -7,10 +7,17 @@ FROM nginx:${NGINX_VERSION}-alpine
 COPY nginx/nginx.conf /etc/nginx/
 
 # Atualiza e instala os pacotes necessários
-# certbot certbot-nginx são os responsáveis pela geração de HTTPS
 RUN apk update && apk upgrade && \
-    apk --update add logrotate openssl bash && \
-    apk add --no-cache certbot certbot-nginx
+    apk --update add logrotate openssl bash nano
+
+# certbot certbot-nginx são os responsáveis pela geração de HTTPS
+RUN apk add --no-cache certbot certbot-nginx
+
+# Instala NodeJS, YARN
+RUN apk add --no-cache nodejs yarn
+
+# Instala gerenciador de serviços Alpine
+RUN apk add openrc
 
 # Remove a configuração padrão do NGINX
 RUN rm -rf /etc/nginx/conf.d/default.conf
@@ -24,8 +31,12 @@ RUN mkdir -p /var/www && \
     chmod 755 -R /var/www
 
 # Cria diretórios para as configurações do NGINX
-RUN mkdir -p /etc/nginx/sites-available /etc/nginx/conf.d && \
-    chown -R www-data:www-data /etc/nginx/sites-available /etc/nginx/conf.d
+RUN mkdir -p /etc/nginx/sites-available  && \
+    chown -R www-data:www-data /etc/nginx/sites-available 
+#/etc/nginx/conf.d /etc/nginx/conf.d 
+
+# WORKDIR /var/www/public/api
+# RUN yarn install
 
 # Define o diretório de trabalho para o NGINX
 WORKDIR /etc/nginx
@@ -35,3 +46,4 @@ RUN apk del --no-cache
 
 # Inicia o NGINX quando o contêiner é executado
 CMD ["nginx", "-g", "daemon off;"]
+
