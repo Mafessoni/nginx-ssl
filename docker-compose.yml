@@ -5,7 +5,11 @@ services:
             context: ./
             args:
                 NGINX_VERSION: '1.25.2'
-                # https://hub.docker.com/_/nginx
+                AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+                AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
+                AWS_KEY: ${AWS_KEY}
+                AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+        env_file: ./.env
         image: nginx-otavio
         container_name: nginx-otavio
         ports:
@@ -18,20 +22,18 @@ services:
             - ./nginx/sites-available:/etc/nginx/sites-available
             - ./nginx/letsencrypt:/etc/letsencrypt
             - ./nginx/renova-ssl.sh:/etc/nginx/renova-ssl.sh
-            # - ./nginx/conf.d:/etc/nginx/conf.d
             # - ./public:/var/www/public
         networks:
             - net_local
 
     server:
-        build:
-            context: ./api/exemplo
-        image: api
+        env_file: ./.env
+        image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/conxpert-server:latest
         container_name: server-otavio
         ports:
             - '3000:3000'
-        # volumes:
-        #     - ./public:/var/www/public
+        volumes:
+            - ./nginx/renova-ssl.sh:/etc/nginx/renova-ssl.sh
         networks:
             - net_local
 
