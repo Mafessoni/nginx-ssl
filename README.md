@@ -7,6 +7,10 @@ docker compose build
 ```sh
 docker compose up -d
 ```
+## Atualizar image da API
+```sh
+docker compose pull --ignore-buildable
+```
 
 ## Criando certificado
 - Acesse o container docker do nginx, e então execute o seguinte comando:
