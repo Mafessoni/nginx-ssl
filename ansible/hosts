@@ -1,0 +1,9 @@
+[otavio]
+34.224.57.10
+
+[otavio:vars]
+ansible_ssh_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[todos:children]
+otavio

@@ -1,0 +1,5 @@
+---
+- hosts: otavio
+  gather_facts: false
+  tasks:
+    - ansible.builtin.include_tasks: ../tasks/pull_project.yaml

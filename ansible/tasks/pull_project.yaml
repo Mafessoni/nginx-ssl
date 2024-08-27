@@ -1,0 +1,5 @@
+---
+- name: Clonando projeto do github
+  ansible.builtin.git:
+    repo: https://github.com/Mafessoni/nginx-ssl.git
+    dest: ~/otavio
