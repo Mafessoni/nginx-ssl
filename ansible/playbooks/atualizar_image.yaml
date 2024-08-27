@@ -2,6 +2,6 @@
 - hosts: otavio
   gather_facts: false
   vars_files:
-    - ../vars/main.yaml
+    - ../vars/aws.yaml
   tasks:
     - ansible.builtin.include_tasks: ../tasks/atualizar_image.yaml

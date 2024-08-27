@@ -42,3 +42,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 ansible/vars/aws.yaml
+ansible/vars/aws.yaml

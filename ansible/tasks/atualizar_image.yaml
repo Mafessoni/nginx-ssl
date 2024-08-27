@@ -74,7 +74,7 @@
     region: "{{ aws_region }}"
     format: "{{ aws_format }}"
   # become_user: "{{ aws_system_user }}"
-  no_log: true
+  # no_log: true
   changed_when: false
 
 - name: Login no ECR da AWS.

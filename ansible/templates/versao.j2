@@ -1,0 +1,5 @@
+{% if image_tag != none %}
+{{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/servidor:{{ image_tag }}
+{% else %}
+{{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/servidor:latest
+{% endif %}
