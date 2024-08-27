@@ -1,24 +1,7 @@
 /public
 /.env
 
-api/src
-api/src/BB-cobrancas
-api/src/config
-api/src/controllers
-api/src/database
-api/src/entities
-api/src/repositories
-api/src/routes
-api/src/services
-api/src/index.ts
-api/.dockerignore
-api/.env
-api/.env.example
-api/.gitignore
-api/Dockerfile
-api/package.json
-api/tsconfig.json
-api/yarn.lock
+/ansible/vars/*
 
 /terraform/
 # Local .terraform directories
