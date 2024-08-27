@@ -4,4 +4,7 @@
   vars_files:
     - ../vars/aws.yaml
   tasks:
+    - ansible.builtin.include_tasks: ../tasks/docker.yaml
+    - ansible.builtin.include_tasks: ../tasks/awscli.yaml
     - ansible.builtin.include_tasks: ../tasks/atualizar_image.yaml
+    - ansible.builtin.include_tasks: ../tasks/atualizar_compose.yaml

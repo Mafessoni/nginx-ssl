@@ -1,0 +1,34 @@
+---
+- name: Instala o pip
+  become: true
+  ansible.builtin.apt:
+    name: python3-pip
+    update_cache: yes
+    state: present
+
+- name: Instala AWS CLI utilizando pip shell
+  become: true
+  ansible.builtin.shell: pip install awscli --break-system-packages
+  no_log: true
+
+- name: Configurando a AWS
+  become: true
+  ansible.builtin.shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
+
+  with_dict:
+    aws_access_key_id: "{{ aws_access_key }}"
+    aws_secret_access_key: "{{ aws_secret_key }}"
+    region: "{{ aws_region }}"
+    format: "{{ aws_format }}"
+  # become_user: "{{ aws_system_user }}"
+  # no_log: true
+  changed_when: false
+
+- name: Login no ECR da AWS.
+  become: true #Adicionei o profile para localizar as configurações setadas
+  ansible.builtin.shell: "aws ecr get-login-password --region {{ aws_region }} --profile {{ aws_profile }} | docker login --username AWS --password-stdin {{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com"
+  register: login
+
+- name: Verificando o login
+  ansible.builtin.debug:
+    msg: "{{login.stdout}}"

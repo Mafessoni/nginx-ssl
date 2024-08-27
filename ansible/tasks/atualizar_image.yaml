@@ -1,91 +1,4 @@
 ---
-# - name: Instalar as dependencias do Docker
-#   become: true
-#   ansible.builtin.apt:
-#     name: "{{ item }}"
-#     state: present
-#     update_cache: yes
-#   with_items:
-#     - apt-transport-https
-#     - ca-certificates
-#     - curl
-#     - gnupg-agent
-#     - software-properties-common
-
-# - name: Adicionar o Docker GPG em apt Key
-#   become: true
-#   ansible.builtin.apt_key:
-#     url: https://download.docker.com/linux/ubuntu/gpg
-#     state: present
-
-# - name: Instalar o Docker
-#   become: true
-#   ansible.builtin.apt:
-#     name: "{{ item }}"
-#     state: present
-#     update_cache: yes
-#   with_items:
-#     - docker-ce
-#     - docker-ce-cli
-#     - containerd.io
-#     - docker-buildx-plugin
-#     - docker-compose-plugin
-
-# # - name: Adicionar usuario docker
-# #   become: true
-# #   ansible.builtin.user:
-# #     name: docker
-# #     state: present
-# #     group: sudo
-
-# # - name: Permissão do usuario docker
-# #   become: true
-# #   ansible.builtin.user:
-# #     name: docker
-# #     shell: /bin/bash
-# #     groups: sudo
-# #     append: yes
-
-# - name: Iniciando o serviço do docker
-#   become: true
-#   ansible.builtin.systemd:
-#     name: docker
-#     state: started
-
-# - name: Instala o pip
-#   become: true
-#   ansible.builtin.apt:
-#     name: python3-pip
-#     update_cache: yes
-#     state: present
-
-# - name: Instala AWS CLI utilizando pip shell
-#   become: true
-#   ansible.builtin.shell: pip install awscli --break-system-packages
-#   no_log: true
-
-# - name: Configurando a AWS
-#   become: true
-#   ansible.builtin.shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
-
-#   with_dict:
-#     aws_access_key_id: "{{ aws_access_key }}"
-#     aws_secret_access_key: "{{ aws_secret_key }}"
-#     region: "{{ aws_region }}"
-#     format: "{{ aws_format }}"
-#   # become_user: "{{ aws_system_user }}"
-#   # no_log: true
-#   changed_when: false
-
-- name: Login no ECR da AWS.
-  become: true #Adicionei o profile para localizar as configurações setadas
-  ansible.builtin.shell: "aws ecr get-login-password --region {{ aws_region }} --profile {{ aws_profile }} | docker login --username AWS --password-stdin {{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com"
-  register: login
-
-- name: Verificando o login
-  ansible.builtin.debug:
-    msg: "{{login.stdout}}"
-
 - name: Criando template
   ansible.builtin.template:
     src: ../templates/versao.j2
@@ -117,12 +30,11 @@
 
 - name: Acessando pasta do projeto no servidor
   shell: cd ./nginx-ssl
-
-- name: Iniciando o novo container com nova imagem
-  become: true
-  community.docker.docker_container:
-    name: server-otavio
-    image: "{{ versao.stdout }}" #"{{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/servidor:{{ image_tag }}"
-    state: started
-    ports:
-      - "3000:3000"
+# - name: Iniciando o novo container com nova imagem
+#   become: true
+#   community.docker.docker_container:
+#     name: server-otavio
+#     image: "{{ versao.stdout }}" #"{{ aws_ecr_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/servidor:{{ image_tag }}"
+#     state: started
+#     ports:
+#       - "3000:3000"
