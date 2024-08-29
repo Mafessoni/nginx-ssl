@@ -58,8 +58,8 @@ resource "aws_route_table_association" "a" {
 
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "otavio-not"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDaxgodFpqRhMWGjoR3LcNNF7ZzGNuZ27XSOIoxU+j8ttd4wkLb02Ex6wTsyzd5oBRH/TIDFQdhtcwso68/8ASOQnwCJQcomKAzue2EAay0NhLZ0dws6cwJWIDS6odm7qoInU48Vr28wCd/0GOApMok+GfBJzPVgqgPB7kBGEW+QTNOSTpisX2pzgRZuHsvLnvk7tjcS4LQLs5KnomPNsGu8vgECuyN4dgrhFuMrNxM9f7ua+Lh/7QVV6lQajE8OLcTWT5DLneGnOtHD7m4GAuejeSToMIdUVxlQVR5GqVgD/pGiFwLRSbk90Rst2KCfBJJ+M4x0jxHSqj3EjIl86UUqVjIQoM26S7xut2sftKT6fu47Z7HeHcSuC5ydY1FBnnV/Ezu509YWcizYJIhQ7UpM4tf9oNsl1lcsxaZpcL/y3ge4xqbw7EpgKpsOr3TT4lULGBKQbF1q9Gdyj0Dv6SGLWZJARmfMnSLxJNv7XQDrDXd872zT+BS9ydVmDtAlyE= otavio@otavio-not"
+  key_name   = ""
+  public_key = ""
   #Pegar a chave publica da tua maquina
 }
 
